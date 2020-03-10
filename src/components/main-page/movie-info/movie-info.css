@@ -1,0 +1,25 @@
+.movie-info-container {
+  width: 100%;
+  padding:20px 0;
+  background: #ddd;
+  color:black;
+  font-weight: bold;
+}
+
+.movie-info {
+  width: 80%;
+  max-width: 1200px;
+  min-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-sort-options span {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.movie-sort-active {
+  color: #F55263;
+}

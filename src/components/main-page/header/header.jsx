@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css';
-import { HttpServiceContext } from "../http-service-context/http-service-context";
+import { HttpServiceContext } from "../../http-service-context/http-service-context";
 
 class Header extends React.Component {
 
