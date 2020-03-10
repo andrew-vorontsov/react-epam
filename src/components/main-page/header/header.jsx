@@ -8,7 +8,7 @@ class Header extends React.Component {
     const httpService = this.context;
 
     httpService.getMoviesList(`?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}`).then(movies => {
-      this.props.moviesLoaded(movies)
+      this.props.getMovies(movies)
     });
   }
 

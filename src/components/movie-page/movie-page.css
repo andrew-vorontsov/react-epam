@@ -1,0 +1,37 @@
+.movie-page {
+  flex: 1 0 auto;
+  background-color: #222222;
+  color:white;
+}
+
+.movie-page-top {
+  background-image: url('../main-page/header/img/john-travolta.jpg');
+  background-position: 50% 50%;
+  background-color: black;
+  padding-bottom: 25px;
+}
+
+.movie-page-header {
+  width: 80%;
+  max-width: 1200px;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+.movie-page-header-container {
+  display: flex;
+  justify-content: space-between;
+  padding:20px 0;
+}
+
+.movie-page-search-button {
+  background-color: white;
+  color: #F55263;
+  padding:7px 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  outline: none;
+  border: none;
+}

@@ -1,0 +1,40 @@
+.movie-data {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.common-movie-disc {
+  box-sizing: content-box;
+  margin-left:25px;
+  font-weight: bold;
+  color: #ffffffe0;
+  padding: 25px 0 0 0;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.common-movie-disc__title {
+  display: flex;
+  align-items: center;
+}
+
+.common-movie-disc__title-text {
+  color: #F55263;
+  font-size:30px;
+}
+
+.common-movie-disc__title-rate {
+  margin-left:25px;
+  padding:15px;
+  color: rgb(28, 194, 103);
+  text-align: center;
+  font-size:20px;
+  border: 1px solid rgb(28, 194, 103);
+  border-radius: 27.5px;
+}
+
+.common-movie-disc__year {
+  margin: 20px 0 30px;
+  color:white;
+}

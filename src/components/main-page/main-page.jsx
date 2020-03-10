@@ -13,18 +13,18 @@ class MainPage extends React.Component {
     let httpService = this.context;
 
     httpService.getMoviesList('').then(movies => {
-      this.props.moviesLoaded(movies)
+      this.props.getMovies(movies)
     })
   }
 
   render() {
 
-    const elements = this.props.data.map((item, index) => {
+    const movies = this.props.data.map((item, index) => {
       const genres = item.genres.map(genre => genre + " ");
       return (
         <MovieItem
           item = {item}
-          index = {index}
+          key = {index}
           genres = {genres}   
         />
       )
@@ -36,7 +36,7 @@ class MainPage extends React.Component {
           searchBy = {this.props.searchBy} 
           sortBy = {this.props.sortBy} 
           changeSearchBy = {this.props.changeSearchBy}
-          moviesLoaded = {this.props.moviesLoaded}
+          getMovies = {this.props.getMovies}
         />
         <MovieInfo
           changeSortBy = {this.props.changeSortBy}
@@ -44,7 +44,7 @@ class MainPage extends React.Component {
           data = {this.props.data.length}
           />
         <div className = 'movies-container'>
-          { elements }
+          { movies }
         </div>
       </div>
     );
@@ -60,4 +60,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, actions)(MainPage)
+export default connect(mapStateToProps, actions)(MainPage);
