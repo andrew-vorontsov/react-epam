@@ -7,11 +7,15 @@ import { HttpServiceContext } from "../http-service-context/http-service-context
 
 class MainPage extends React.Component {
 
-  componentDidMount() {
-    const httpService = this.context;
+  sortActiveToggle(arg) {
+    this.props.changeSortBy(arg)
+  }
 
-    httpService.getMoviesList().then(value => {
-      this.props.moviesLoaded(value)
+  componentDidMount() {
+    let httpService = this.context;
+
+    httpService.getMoviesList('').then(movies => {
+      this.props.moviesLoaded(movies)
     })
   }
 
@@ -25,7 +29,7 @@ class MainPage extends React.Component {
             <img className = "movie-poster-image" alt = {item.title} src = {item.poster_path} />
           </div>
           <div className = "movie-title">
-            { item.title }
+            <span>{ item.title }</span>
             <span className = "movie-date">{ item.release_date.match(/^\d\d\d\d/) }</span>
           </div>
           <div className = "movie-genres">{ genres }</div>
@@ -35,7 +39,32 @@ class MainPage extends React.Component {
 
     return (
       <div className = "main-page">
-        <Header />
+
+        <Header 
+          searchBy = {this.props.searchBy} 
+          sortBy = {this.props.sortBy} 
+          changeSearchBy = {this.props.changeSearchBy}
+          moviesLoaded = {this.props.moviesLoaded}
+        />
+
+        <div className = "movie-info-container">
+          <div className = "movie-info">
+            <div>{ this.props.data.length } movies found</div>
+            <div className = "movie-sort-options">
+              <span>Sort by</span>
+              <span 
+                onClick = {() => this.sortActiveToggle("release_date")} 
+                className = {this.props.sortBy === "release_date" ? "movie-sort-active " : ""}>
+                release date
+              </span>
+              <span 
+                onClick = {() => this.sortActiveToggle("rating")} 
+                className = {this.props.sortBy === "rating" ? "movie-sort-active " : ""}>
+                rating
+              </span>
+            </div>
+          </div>
+        </div>
         <div className = 'movies-container'>
           { elements}
         </div>
@@ -47,7 +76,9 @@ MainPage.contextType = HttpServiceContext;
 
 const mapStateToProps = (state) => {
   return {
-    data: state.data
+    data: state.data,
+    sortBy: state.sortBy,
+    searchBy: state.searchBy
   }
 }
 

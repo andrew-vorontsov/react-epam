@@ -69,6 +69,10 @@
   cursor: pointer;
 }
 
+.search-panel-filter-active {
+  background-color: #F55263;
+}
+
 .search-panel__button-submit {
   margin: 15px 0;
   outline: none;

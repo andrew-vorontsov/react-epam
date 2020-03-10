@@ -12,14 +12,29 @@ const initialState: any = {
     revenue: 136906000,
     genres: ["Drama", "Romance"],
     runtime: 106,
-  }]
+  }],
+  sortBy: "release_date",
+  searchBy: "title"
 }
 
 const reducer = (state: any = initialState , action: any) => {
   switch (action.type) {
     case "GET_MOVIES":
       state = {
-        data: action.payload
+        ...state,
+        data: action.payload,
+      }
+      return state;
+    case "CHANGE_SORT_BY":
+      state = {
+        ...state,
+        sortBy: action.payload,
+      }
+      return state;
+    case "CHANGE_SEARCH_BY":
+      state = {
+        ...state,
+        searchBy: action.payload,
       }
       return state;
     default:

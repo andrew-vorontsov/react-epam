@@ -12,8 +12,8 @@ export default class HttpService {
     return await res.json();
   };
 
-  getMoviesList = async () => {
-    const res = await this.getResource(`movies`);
+  getMoviesList = async (url: string) => {
+    const res = await this.getResource(`movies` + url);
     return res.data;
   };
 
