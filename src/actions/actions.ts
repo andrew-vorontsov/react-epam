@@ -1,8 +1,6 @@
-export const moviesLoaded = () => {
+export const moviesLoaded = (newMovies: any) => {
   return {
     type: "GET_MOVIES",
-    payload: [
-      'aaa', 'bbb'
-    ]
+    payload: newMovies
   }
 }

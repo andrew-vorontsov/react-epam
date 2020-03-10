@@ -1,3 +1,49 @@
 .main-page {
   flex: 1 0 auto;
+  background-color: #222222;
+  color:white;
+}
+
+.movies-container {
+  width: 80%;
+  margin: 0 auto;
+  padding:10px 0;
+  max-width: 1200px;
+  min-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.movie {
+  width:300px;
+  margin: 0 0 30px;
+  box-sizing: content-box;
+}
+
+.movie-poster {
+  width:300px;
+  height: 450px;
+  background-color: #888888;
+}
+
+.movie-poster-image {
+  width: 300px;
+  height: 450px;
+}
+
+.movie-title {
+  font-weight: bold;
+  padding:5px 0;
+  text-transform: uppercase;
+}
+
+.movie-date {
+  float: right;
+  font-size:14px;
+}
+
+.movie-genres {
+  padding:5px 0;
+  font-size:14px;
 }

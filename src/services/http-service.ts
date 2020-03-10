@@ -12,22 +12,13 @@ export default class HttpService {
     return await res.json();
   };
 
-  getData= () => {
-    return [
-      {
-        id: 1,
-        name: "A"
-      }
-    ]
-  }
-
   getMoviesList = async () => {
     const res = await this.getResource(`movies`);
-    return res;
+    return res.data;
   };
 
   getMovie = async (id: string) => {
-    const person = await this.getResource(`/people/${id}/`);
-    return person;
+    const movie = await this.getResource(`/movie/${id}/`);
+    return movie;
   };
 }
