@@ -4,7 +4,7 @@ import MovieDescription from './movie-description/movie-description';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/actions';
 import {Link} from 'react-router-dom';
-import MovieItem from '../main-page/movie-item/movie-item';
+import Movies from '../main-page/movies/movies';
 import { HttpServiceContext } from "../http-service-context/http-service-context";
 import MovieRec from './movie-recomendations/movie-recomendations';
 
@@ -28,17 +28,6 @@ class MoviePage extends React.Component {
   }
 
   render() {
-    const movies = this.props.data.map((item, index) => {
-      const genres = item.genres.join(' & ');
-      return (
-        <MovieItem
-          changeMovies = {this.changeMovies.bind(this)}
-          item = {item}
-          key = {index}
-          genres = {genres}   
-        />
-      )
-    });
 
     return (
       <div className = "movie-page">
@@ -52,9 +41,10 @@ class MoviePage extends React.Component {
           </div>
         </div>
         <MovieRec genres = { this.props.movie.genres } />
-        <div className = 'movies-container'>
-          { movies }
-        </div>
+        <Movies 
+          changeMovies = {this.changeMovies.bind(this)}
+          data = {this.props.data}
+        />
       </div>
     );
   }

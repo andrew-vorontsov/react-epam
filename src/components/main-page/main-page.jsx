@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from './header/header';
 import MovieInfo from './movie-info/movie-info';
-import MovieItem from './movie-item/movie-item';
 import './main-page.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/actions';
 import { HttpServiceContext } from "../http-service-context/http-service-context";
+import Movies from './movies/movies';
 
 class MainPage extends React.Component {
 
@@ -13,7 +13,7 @@ class MainPage extends React.Component {
     let httpService = this.context;
 
     httpService.getOneMovie(id).then(movie => {
-      this.props.getMovie(movie)
+      this.props.getMovie(movie);
       httpService.getMoviesList(`?search=${movie.genres[0]}&searchBy=genres`).then(movies => {
         this.props.getMovies(movies)
       })
@@ -24,23 +24,12 @@ class MainPage extends React.Component {
     let httpService = this.context;
 
     httpService.getMoviesList('').then(movies => {
-      this.props.getMovies(movies)
+      this.props.getMovies(movies);
+      this.props.changeSortBy("release_date");
     })
   }
 
   render() {
-
-    const movies = this.props.data.map((item, index) => {
-      const genres = item.genres.join(' & ');
-      return (
-        <MovieItem
-          changeMovies = {this.changeMovies.bind(this)}
-          item = {item}
-          key = {index}
-          genres = {genres}
-        />
-      )
-    });
 
     return (
       <div className = "main-page">
@@ -55,9 +44,10 @@ class MainPage extends React.Component {
           sortBy = {this.props.sortBy}
           data = {this.props.data.length}
           />
-        <div className = 'movies-container'>
-          { movies }
-        </div>
+        <Movies 
+          changeMovies = {this.changeMovies.bind(this)}
+          data = {this.props.data}
+        />
       </div>
     );
   }

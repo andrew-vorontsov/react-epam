@@ -25,8 +25,8 @@ const reducer = (state: any = initialState , action: any) => {
     case "CHANGE_SORT_BY":
       state = {
         ...state,
-        data: state.data.sort((a: any, b: any) => a[action.payload] > b[action.payload] ? -1 : 1),
         sortBy: action.payload,
+        data: state.data.sort((a: any, b: any) => a[action.payload] > b[action.payload] ? -1 : 1),
       }
       return state;
     case "CHANGE_SEARCH_BY":
