@@ -5,17 +5,17 @@ export const getMovies = (newMovies: any) => {
   }
 }
 
-export const getOneMovie = (movie: any) => {
+export const getMovie = (movie: any) => {
   return {
     type: "GET_ONE_MOVIE",
     payload: movie
   }
 }
 
-export const changeSortBy = (sort: any) => {
+export const changeSortBy = (sortBy: any) => {
   return {
     type: "CHANGE_SORT_BY",
-    payload: sort
+    payload: sortBy
   }
 }
 

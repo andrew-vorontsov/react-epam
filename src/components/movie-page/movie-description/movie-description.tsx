@@ -10,12 +10,12 @@ const MovieDescription = (props: any) => {
       <div className = "common-movie-disc">
         <div className = "common-movie-disc__title">
           <div className = "common-movie-disc__title-text">{props.movie.title}</div>
-          <div className = "common-movie-disc__title-rate">{props.movie.vote_count}</div>
+          <div className = "common-movie-disc__title-rate">{props.movie.vote_average}</div>
         </div>
         <div className = "common-movie-disc__subtitle">{props.movie.tagline}</div>
         <div className = "common-movie-disc__year">
           { props.movie.release_date === undefined ? '' :  props.movie.release_date.match(/^\d\d\d\d/)}
-          <div className = "common-movie-time">{props.movie.runtime}</div>
+          <div className = "common-movie-time">{props.movie.runtime} min</div>
         </div>
         <div className = "common-movie-disc__disc">{props.movie.overview}</div>
       </div>

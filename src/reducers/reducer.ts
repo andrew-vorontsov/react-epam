@@ -13,7 +13,7 @@ const reducer = (state: any = initialState , action: any) => {
     case "GET_MOVIES":
       state = {
         ...state,
-        data: action.payload,
+        data: action.payload
       }
       return state;
     case "GET_ONE_MOVIE":
@@ -25,6 +25,7 @@ const reducer = (state: any = initialState , action: any) => {
     case "CHANGE_SORT_BY":
       state = {
         ...state,
+        data: state.data.sort((a: any, b: any) => a[action.payload] > b[action.payload] ? -1 : 1),
         sortBy: action.payload,
       }
       return state;

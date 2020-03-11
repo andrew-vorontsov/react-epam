@@ -6,24 +6,33 @@ import * as actions from '../../actions/actions';
 import {Link} from 'react-router-dom';
 import MovieItem from '../main-page/movie-item/movie-item';
 import { HttpServiceContext } from "../http-service-context/http-service-context";
+import MovieRec from './movie-recomendations/movie-recomendations';
 
 class MoviePage extends React.Component {
-  componentDidMount() {
+
+  changeMovies(id) {
     let httpService = this.context;
 
-    httpService.getMovie(this.props.match.params.id).then(movie => {
-      this.props.getOneMovie(movie);
+    httpService.getOneMovie(id).then(movie => {
+      this.props.getMovie(movie)
       httpService.getMoviesList(`?search=${movie.genres[0]}&searchBy=genres`).then(movies => {
         this.props.getMovies(movies)
-      });
-    });
+      })
+    })
+  }
+
+  componentDidMount() {
+    if (this.props.movie.length === 0) {
+      this.changeMovies(this.props.match.params.id)
+    }
   }
 
   render() {
     const movies = this.props.data.map((item, index) => {
-      const genres = item.genres.map(genre => genre + " ");
+      const genres = item.genres.join(' & ');
       return (
         <MovieItem
+          changeMovies = {this.changeMovies.bind(this)}
           item = {item}
           key = {index}
           genres = {genres}   
@@ -39,9 +48,10 @@ class MoviePage extends React.Component {
               <div className = "header-logo">netflixroulette</div>
               <Link to = "/"><button className = "movie-page-search-button">search</button></Link>
             </div>
-            <MovieDescription movie = {this.props.movie}/>
+            <MovieDescription movie = { this.props.movie }/>
           </div>
         </div>
+        <MovieRec genres = { this.props.movie.genres } />
         <div className = 'movies-container'>
           { movies }
         </div>

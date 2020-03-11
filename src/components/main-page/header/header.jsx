@@ -4,10 +4,10 @@ import { HttpServiceContext } from "../../http-service-context/http-service-cont
 
 class Header extends React.Component {
 
-  searchMovies(value, searchBy, sortBy) {
+  searchMovies(value, searchBy) {
     const httpService = this.context;
 
-    httpService.getMoviesList(`?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}`).then(movies => {
+    httpService.getMoviesList(`?search=${value}&searchBy=${searchBy}`).then(movies => {
       this.props.getMovies(movies)
     });
   }
@@ -40,7 +40,7 @@ class Header extends React.Component {
               </button>
             </div>
             <button 
-              onClick = {() => this.searchMovies(this.searchValue, this.props.searchBy, this.props.sortBy)} 
+              onClick = {() => this.searchMovies(this.searchValue, this.props.searchBy)} 
               className = "search-panel__button-submit">
               search
             </button>

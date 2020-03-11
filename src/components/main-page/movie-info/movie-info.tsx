@@ -15,8 +15,8 @@ const MovieInfo = (props: any) => {
             release date
           </span>
           <span
-            onClick = {() => props.changeSortBy("rating")}
-            className = {props.sortBy === "rating" ? "movie-sort-active " : ""}>
+            onClick = {() => props.changeSortBy("vote_average")}
+            className = {props.sortBy === "vote_average" ? "movie-sort-active " : ""}>
             rating
           </span>
         </div>
