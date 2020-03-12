@@ -1,6 +1,6 @@
 export default class HttpService {
 
-  public apiBase = 'https://reactjs-cdp.herokuapp.com/';
+  private apiBase = 'https://reactjs-cdp.herokuapp.com/';
 
   getResource = async (url: string) => {
     const res = await fetch(`${this.apiBase}${url}`);

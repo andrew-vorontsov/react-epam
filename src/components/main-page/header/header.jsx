@@ -1,46 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './header.css';
+import { connect } from 'react-redux';
+import * as actions from '../../../actions/actions';
 import { HttpServiceContext } from "../../http-service-context/http-service-context";
 
-class Header extends React.Component {
+const Header = (props) => {
+  
+  const httpService = useContext(HttpServiceContext);
 
-  searchMovies(value, searchBy) {
-    const httpService = this.context;
-
+  const searchMovies = (value, searchBy) => {
     httpService.getMoviesList(`?search=${value}&searchBy=${searchBy}`).then(movies => {
-      this.props.getMovies(movies)
+      props.getMovies(movies)
     });
   }
 
-  searchValue = '';
+  let searchValue = '';
 
-  onChanging(event) {
-    this.searchValue = event.target.value;
+  const onChanging = (event) => {
+    searchValue = event.target.value;
   }
-
-  render() {
     return (
       <header className = "header">
         <div className = "header-container">
           <div className = "header-logo">netflixroulette</div>
           <div className = "search-panel-header">find your movie</div>
           <div className = "search-panel">
-            <input type = "text" className = "search-panel-input" onChange = {this.onChanging.bind(this)}/>
+            <input type = "text" className = "search-panel-input" onChange = {onChanging}/>
             <div className = "search-panel-filter">
               <span className = "search-panel-filter__header">search by</span>
               <button 
-                onClick = {() => this.props.changeSearchBy("title")} 
-                className = {this.props.searchBy === "title" ? "search-panel-filter__button search-panel-filter-active" : "search-panel-filter__button"}>
+                onClick = {() => props.changeSearchBy("title")} 
+                className = {props.searchBy === "title" ? "search-panel-filter__button search-panel-filter-active" : "search-panel-filter__button"}>
                 title
               </button>
               <button 
-                onClick = {() => this.props.changeSearchBy("genres")} 
-                className = {this.props.searchBy === "genres" ? "search-panel-filter__button search-panel-filter-active" : "search-panel-filter__button"}>
+                onClick = {() => props.changeSearchBy("genres")} 
+                className = {props.searchBy === "genres" ? "search-panel-filter__button search-panel-filter-active" : "search-panel-filter__button"}>
                 genre
               </button>
             </div>
             <button 
-              onClick = {() => this.searchMovies(this.searchValue, this.props.searchBy)} 
+              onClick = {() => searchMovies(searchValue, props.searchBy)} 
               className = "search-panel__button-submit">
               search
             </button>
@@ -48,8 +48,12 @@ class Header extends React.Component {
         </div>
       </header>
     );
+}
+
+const mapStateToProps = (state) => {
+  return {
+    searchBy: state.searchBy
   }
 }
-Header.contextType = HttpServiceContext;
 
-export default Header;
+export default connect(mapStateToProps, actions)(Header);

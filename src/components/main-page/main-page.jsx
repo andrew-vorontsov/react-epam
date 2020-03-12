@@ -5,20 +5,9 @@ import './main-page.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/actions';
 import { HttpServiceContext } from "../http-service-context/http-service-context";
-import Movies from './movies/movies';
+import Movies from '../movies/movies';
 
 class MainPage extends React.Component {
-
-  changeMovies(id) {
-    let httpService = this.context;
-
-    httpService.getOneMovie(id).then(movie => {
-      this.props.getMovie(movie);
-      httpService.getMoviesList(`?search=${movie.genres[0]}&searchBy=genres`).then(movies => {
-        this.props.getMovies(movies)
-      })
-    })
-  }
 
   componentDidMount() {
     let httpService = this.context;
@@ -33,21 +22,13 @@ class MainPage extends React.Component {
 
     return (
       <div className = "main-page">
-        <Header 
-          searchBy = {this.props.searchBy} 
-          sortBy = {this.props.sortBy} 
-          changeSearchBy = {this.props.changeSearchBy}
-          getMovies = {this.props.getMovies}
-        />
+        <Header />
         <MovieInfo
           changeSortBy = {this.props.changeSortBy}
           sortBy = {this.props.sortBy}
           data = {this.props.data.length}
           />
-        <Movies 
-          changeMovies = {this.changeMovies.bind(this)}
-          data = {this.props.data}
-        />
+        <Movies />
       </div>
     );
   }

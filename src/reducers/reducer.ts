@@ -8,12 +8,16 @@ const initialState: any = {
   searchBy: "title"
 }
 
+const innerSorting = (data: any, valueType: any) => {
+  return data.sort((a: any, b: any) => a[valueType] > b[valueType] ? -1 : 1)
+}
+
 const reducer = (state: any = initialState , action: any) => {
   switch (action.type) {
     case "GET_MOVIES":
       state = {
         ...state,
-        data: action.payload
+        data: innerSorting(action.payload, state.sortBy),
       }
       return state;
     case "GET_ONE_MOVIE":
@@ -26,7 +30,7 @@ const reducer = (state: any = initialState , action: any) => {
       state = {
         ...state,
         sortBy: action.payload,
-        data: state.data.sort((a: any, b: any) => a[action.payload] > b[action.payload] ? -1 : 1),
+        data: innerSorting(state.data, action.payload),
       }
       return state;
     case "CHANGE_SEARCH_BY":
