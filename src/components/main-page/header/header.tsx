@@ -3,12 +3,13 @@ import './header.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/actions';
 import { HttpServiceContext } from "../../http-service-context/http-service-context";
+import { SearchBy, ReduxState } from '../../../types';
 
-const Header = (props) => {
-  
+const Header = (props: any) => {
+
   const httpService = useContext(HttpServiceContext);
 
-  const searchMovies = (value, searchBy) => {
+  const searchMovies = (value: string, searchBy: SearchBy) => {
     httpService.getMoviesList(`?search=${value}&searchBy=${searchBy}`).then(movies => {
       props.getMovies(movies)
     });
@@ -16,7 +17,7 @@ const Header = (props) => {
 
   let searchValue = '';
 
-  const onChanging = (event) => {
+  const onChanging = (event: any) => {
     searchValue = event.target.value;
   }
     return (
@@ -28,19 +29,19 @@ const Header = (props) => {
             <input type = "text" className = "search-panel-input" onChange = {onChanging}/>
             <div className = "search-panel-filter">
               <span className = "search-panel-filter__header">search by</span>
-              <button 
-                onClick = {() => props.changeSearchBy("title")} 
+              <button
+                onClick = {() => props.changeSearchBy("title")}
                 className = {props.searchBy === "title" ? "search-panel-filter__button search-panel-filter-active" : "search-panel-filter__button"}>
                 title
               </button>
-              <button 
-                onClick = {() => props.changeSearchBy("genres")} 
+              <button
+                onClick = {() => props.changeSearchBy("genres")}
                 className = {props.searchBy === "genres" ? "search-panel-filter__button search-panel-filter-active" : "search-panel-filter__button"}>
                 genre
               </button>
             </div>
-            <button 
-              onClick = {() => searchMovies(searchValue, props.searchBy)} 
+            <button
+              onClick = {() => searchMovies(searchValue, props.searchBy)}
               className = "search-panel__button-submit">
               search
             </button>
@@ -50,7 +51,7 @@ const Header = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     searchBy: state.searchBy
   }

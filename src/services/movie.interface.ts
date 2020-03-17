@@ -10,7 +10,5 @@ export interface Movie {
   budget: number;
   revenue: number;
   runtime: number;
-  genres: [
-    string
-  ]
+  genres: string[];
 }

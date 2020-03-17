@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import './movie-page.css';
 import MovieDescription from './movie-description/movie-description';
 import { connect } from 'react-redux';
@@ -7,24 +7,25 @@ import {Link} from 'react-router-dom';
 import Movies from '../movies/movies';
 import { HttpServiceContext } from "../http-service-context/http-service-context";
 import MovieRec from './movie-recomendations/movie-recomendations';
+import { ReduxState, Movie } from '../../types';
 
-class MoviePage extends React.Component {
+const MoviePage = (props: any) => {
+    const httpService = useContext(HttpServiceContext);
 
-  componentDidMount() {
-    if (this.props.movie.length === 0) {
-      let httpService = this.context;
+    const { getMovies, changeSortBy, getMovie, match, movie } = props;
 
-      httpService.getOneMovie(this.props.match.params.id).then(movie => {
-        this.props.getMovie(movie);
-        httpService.getMoviesList(`?search=${movie.genres[0]}&searchBy=genres`).then(films => {
-          this.props.getMovies(films);
-          this.props.changeSortBy("release_date");
+    useEffect(() => {
+      if (movie.length === 0) {
+        httpService.getOneMovie(match.params.id).then((film: Movie) => {
+          getMovie(film);
+          httpService.getMoviesList(`?search=${movie.genres[0]}&searchBy=genres`).then((films: Movie[]) => {
+            getMovies(films);
+            changeSortBy("release_date");
+          })
         })
-      })
-    }
-  }
+      }
+    }, [httpService, getMovies, changeSortBy, match, movie, getMovie])
 
-  render() {
     return (
       <div className = "movie-page">
         <div className = "movie-page-top">
@@ -33,18 +34,16 @@ class MoviePage extends React.Component {
               <div className = "header-logo">netflixroulette</div>
               <Link to = "/"><button className = "movie-page-search-button">search</button></Link>
             </div>
-            <MovieDescription movie = { this.props.movie }/>
+            <MovieDescription movie = { props.movie }/>
           </div>
         </div>
-        <MovieRec genres = { this.props.movie.genres } />
+        <MovieRec genres = { props.movie.genres } />
         <Movies />
       </div>
     );
   }
-}
-MoviePage.contextType = HttpServiceContext;
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     data: state.data,
     movie: state.movie,

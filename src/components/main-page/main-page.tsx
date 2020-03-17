@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from './header/header';
 import MovieInfo from './movie-info/movie-info';
 import './main-page.css';
@@ -6,36 +6,34 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/actions';
 import { HttpServiceContext } from "../http-service-context/http-service-context";
 import Movies from '../movies/movies';
+import { ReduxState, Movie } from '../../types';
 
-class MainPage extends React.Component {
+const MainPage = (props: any) => {
+  const httpService = useContext(HttpServiceContext);
 
-  componentDidMount() {
-    let httpService = this.context;
+  const { getMovies, changeSortBy } = props;
 
-    httpService.getMoviesList('').then(movies => {
-      this.props.getMovies(movies);
-      this.props.changeSortBy("release_date");
+  useEffect(() => {
+    httpService.getMoviesList().then((movies: Movie[]) => {
+      getMovies(movies);
+      changeSortBy("release_date");
     })
-  }
-
-  render() {
+  }, [httpService, getMovies, changeSortBy])
 
     return (
       <div className = "main-page">
         <Header />
         <MovieInfo
-          changeSortBy = {this.props.changeSortBy}
-          sortBy = {this.props.sortBy}
-          data = {this.props.data.length}
+          changeSortBy = {props.changeSortBy}
+          sortBy = {props.sortBy}
+          data = {props.data.length}
           />
         <Movies />
       </div>
     );
   }
-}
-MainPage.contextType = HttpServiceContext;
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     data: state.data,
     sortBy: state.sortBy,
